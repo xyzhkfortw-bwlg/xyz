@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>退休刑警諮詢室 | 法律與問題解決建議</title>
+<style>
+:root {
+  --police-blue: #0A1E3D; /* 深警藍色，展現專業沉穩 */
+  --police-card: rgba(255, 255, 255, 0.05);
+  --gold: #C5A059; /* 象徵正義的金色 */
+  --gold-glow: rgba(197, 160, 89, 0.3);
+  --text-main: #F4F4F4;
+  --text-muted: #A0B0C5;
+  --danger: #E74C3C;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+body { 
+  font-family: "PingFang TC", "Noto Sans TC", sans-serif;
+  background: var(--police-blue);
+  background-image: linear-gradient(135deg, #0A1E3D 0%, #050F1F 100%);
+  color: var(--text-main); 
+  line-height: 1.7;
+}
+
+/* ── Hero ── */
+.hero { padding: 60px 24px 30px; text-align: center; }
+.hero-badge { font-size: 13px; color: var(--gold); letter-spacing: 2px; margin-bottom: 12px; font-weight: bold; border: 1px solid var(--gold); display: inline-block; padding: 4px 12px; border-radius: 20px; }
+.hero-title { font-size: 28px; font-weight: 800; color: #FFF; margin-bottom: 15px; }
+.hero-subtitle { font-size: 15px; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+/* ── About Me ── */
+.about-section { margin: 0 20px 30px; padding: 25px; background: rgba(255,255,255,0.03); border-radius: var(--radius); border-left: 4px solid var(--gold); }
+.about-title { color: var(--gold); font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+.about-content { font-size: 14px; color: var(--text-main); }
+
+/* ── Step Progress ── */
+.progress-wrap { padding: 0 30px 30px; }
+.progress-bar { background: rgba(255,255,255,0.1); border-radius: 10px; height: 3px; }
+.progress-fill { height: 100%; border-radius: 10px; background: var(--gold); transition: width .4s ease; }
+
+/* ── Card ── */
+.card { 
+  background: var(--police-card); margin: 0 16px 20px; padding: 24px;
+  border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.08);
+}
+.card-title { font-size: 18px; font-weight: bold; color: var(--gold); margin-bottom: 20px; }
+
+/* ── Selection Grid ── */
+.cat-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.cat-item {
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 15px;
+}
+.cat-item.selected { border-color: var(--gold); background: rgba(197, 160, 89, 0.15); }
+.cat-icon { font-size: 20px; }
+.cat-name { font-weight: 600; font-size: 15px; }
+
+/* ── Forms ── */
+.form-group { margin-bottom: 20px; }
+label { display: block; font-size: 14px; margin-bottom: 8px; color: var(--text-muted); }
+input, select, textarea {
+  width: 100%; padding: 14px; background: rgba(0,0,0,0.2);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+  color: #FFF; font-size: 16px;
+}
+input:focus, textarea:focus { outline: none; border-color: var(--gold); }
+
+/* ── Buttons ── */
+.btn-row { padding: 10px 20px 40px; display: flex; flex-direction: column; gap: 12px; }
+.btn { width: 100%; padding: 16px; border-radius: 8px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+.btn-main { background: var(--gold); color: #FFF; }
+.btn-paypal { background: #0070BA; color: #FFF; text-decoration: none; text-align: center; display: block; }
+.btn-back { background: transparent; color: var(--text-muted); border: 1px solid rgba(255,255,255,0.2); }
+
+.step-page { display: none; }
+.step-page.active { display: block; animation: fadeIn 0.5s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+#success-screen { display: none; text-align: center; padding: 60px 24px; }
+.loading-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 100; color: var(--gold); }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">三十年刑偵經驗 ⚖️ 專業傳承</div>
+  <h1 class="hero-title">化解您的<span>棘手難題</span></h1>
+  <p class="hero-subtitle">我是退休刑警，提供法律諮詢與實務建議。在這裡，棘手的事，我們一起找出口。</p>
+</div>
+
+<div class="about-section">
+  <div class="about-title">專業、正義、經驗的傳承</div>
+  <div class="about-content">
+    「我的目標不是盈利，而是協助您解決那些法律之下、生活之中的棘手問題。」法律不該只有冷冰冰的條文，更需要實務經驗的引導。
+  </div>
+</div>
+
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:33%"></div></div>
+</div>
+
+<div class="step-page active" id="step1">
+  <div class="card">
+    <div class="card-title">請選擇諮詢領域</div>
+    <div class="cat-grid">
+      <div class="cat-item" data-cat="刑事諮詢"><span class="cat-icon">🛡️</span><div class="cat-name">刑事諮詢 (詐騙、傷害、告訴權益)</div></div>
+      <div class="cat-item" data-cat="民事糾紛"><span class="cat-icon">⚖️</span><div class="cat-name">民事糾紛 (債務、租賃、損害賠償)</div></div>
+      <div class="cat-item" data-cat="權益維護"><span class="cat-icon">🚦</span><div class="cat-name">權益維護 (車禍調解、職場霸凌)</div></div>
+      <div class="cat-item" data-cat="其他難題"><span class="cat-icon">🔍</span><div class="cat-name">其他棘手難題</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="step-page" id="step2">
+  <div class="card">
+    <div class="card-title">問題詳情</div>
+    <div class="form-group">
+      <label>聯絡稱呼 (必填)</label>
+      <input type="text" id="contactName" placeholder="例如：王先生 / 陳小姐">
+    </div>
+    <div class="form-group">
+      <label>問題描述 (請儘可能詳細，必填)</label>
+      <textarea id="issueDesc" rows="6" placeholder="請描述事件經過、目前遇到的困境..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>通訊軟體 ID (選填，方便深度溝通)</label>
+      <input type="text" id="contactId" placeholder="LINE ID 或其他聯繫方式">
+    </div>
+  </div>
+</div>
+
+<div class="step-page" id="step3">
+  <div class="card">
+    <div class="card-title">服務宗旨說明</div>
+    <div class="about-content" style="margin-bottom:20px;">
+      • <b>協助導向：</b>解決您的實際困境為首要目標。<br>
+      • <b>完全免費：</b>線上提問不收取諮詢費。<br>
+      • <b>贊助支持：</b>若我的建議對您有幫助，歡迎小額贊助。
+    </div>
+    <a href="https://www.paypal.me/YOUR_ID" target="_blank" class="btn btn-paypal">☕ 贊助支持此服務 (PayPal)</a>
+  </div>
+</div>
+
+<div class="btn-row" id="btnRow">
+  <button class="btn btn-main" id="btnNext" onclick="nextStep()">立即提交問題</button>
+  <button class="btn btn-back" id="btnBack" onclick="prevStep()" style="display:none">返回修改</button>
+</div>
+
+<div id="success-screen">
+  <div style="font-size: 60px;">⚖️</div>
+  <h2 style="color:var(--gold); margin:20px 0;">訊息已收到</h2>
+  <p style="color:var(--text-muted); margin-bottom:30px;">我會詳細閱讀您的狀況，並盡快給予初步回覆。<br>請留意您提供的通訊軟體 ID。</p>
+  <button class="btn btn-main" style="max-width:200px;" onclick="location.reload()">回首頁</button>
+</div>
+
+<div class="loading-overlay hidden" id="loadingOverlay">正在傳遞訊息至偵務室...</div>
+
+<script>
+let currentStep = 1;
+let selectedCat = '';
+const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL'; // 請替換為您的 GAS 網址
+
+document.querySelectorAll('.cat-item').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.cat-item').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedCat = el.dataset.cat;
+    setTimeout(nextStep, 300); // 選完自動跳下一步
+  });
+});
+
+function updateUI() {
+  document.getElementById('progressFill').style.width = (currentStep / 3 * 100) + '%';
+  document.getElementById('btnBack').style.display = currentStep > 1 ? 'block' : 'none';
+  
+  if(currentStep === 1) {
+    document.getElementById('btnNext').style.display = 'none'; // 第一步靠點擊選項切換
+  } else if(currentStep === 2) {
+    document.getElementById('btnNext').style.display = 'block';
+    document.getElementById('btnNext').textContent = '下一步 (確認說明)';
+  } else {
+    document.getElementById('btnNext').textContent = '🚀 確定送出諮詢';
+  }
+}
+
+function nextStep() {
+  if (currentStep === 1 && !selectedCat) return;
+  if (currentStep === 2) {
+    if(!document.getElementById('contactName').value || !document.getElementById('issueDesc').value) {
+      alert('請填寫稱呼與問題描述');
+      return;
+    }
+  }
+  if (currentStep === 3) {
+    submitData();
+    return;
+  }
+
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep++;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateUI();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function prevStep() {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep--;
+  document.getElementById('step' + currentStep).classList.add('active');
+  updateUI();
+}
+
+async function submitData() {
+  const payload = {
+    category: selectedCat,
+    name: document.getElementById('contactName').value,
+    description: document.getElementById('issueDesc').value,
+    contactId: document.getElementById('contactId').value
+  };
+
+  document.getElementById('loadingOverlay').classList.remove('hidden');
+  
+  try {
+    // 這裡維持你原本的 GAS POST 邏輯
+    await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+    document.getElementById('loadingOverlay').classList.add('hidden');
+    document.querySelectorAll('.step-page').forEach(s => s.style.display = 'none');
+    document.getElementById('btnRow').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    document.querySelector('.about-section').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+  } catch(e) {
+    document.getElementById('loadingOverlay').classList.add('hidden');
+    alert('提交失敗，請檢查網路連線');
+  }
+}
+
+updateUI(); // 初始化頁面
+</script>
+
+</body>
+</html>
