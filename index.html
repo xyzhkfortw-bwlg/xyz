@@ -2,47 +2,222 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>諮詢室</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>法律實務研析室</title>
     <style>
-        body { background: #0A1E3D; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
-        .card { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; max-width: 400px; margin: auto; }
-        input, textarea, select { width: 100%; margin: 10px 0; padding: 10px; border-radius: 5px; border: none; }
-        button { background: #C5A059; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        :root {
+            --primary-gold: #C5A059;
+            --bg-dark: #0A1E3D;
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --input-bg: rgba(0, 0, 0, 0.3);
+            --text-main: #FFFFFF;
+            --text-muted: #B0B8C1;
+        }
+
+        /* 手機板基礎設定 */
+        body { 
+            background: radial-gradient(circle at top, #162C4E 0%, #0A1E3D 100%); 
+            color: var(--text-main); 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            padding: 40px 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        h1 { 
+            font-size: 1.6rem; 
+            letter-spacing: 3px; 
+            margin: 0 0 12px 0;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .divider {
+            width: 35px;
+            height: 2px;
+            background: var(--primary-gold);
+            margin: 15px auto;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* 提升手機點擊質感的卡片 */
+        .card { 
+            background: var(--card-bg); 
+            padding: 28px; 
+            border-radius: 20px; 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--primary-gold);
+            margin-bottom: 8px;
+            margin-left: 4px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        /* 優化手機輸入框 */
+        input, textarea, select { 
+            width: 100%; 
+            margin-bottom: 22px; 
+            padding: 14px 16px; 
+            border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.15); 
+            background: var(--input-bg);
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 16px; /* 防止 iOS 自動放大 */
+            transition: all 0.25s ease;
+            appearance: none; /* 移除行動裝置預設樣式 */
+            -webkit-appearance: none;
+        }
+
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23C5A059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 18px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            background: rgba(0,0,0,0.5);
+            box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.2);
+        }
+
+        /* 適合大拇指點擊的按鈕 */
+        button { 
+            background: var(--primary-gold); 
+            color: white; 
+            border: none; 
+            padding: 18px; 
+            width: 100%; 
+            border-radius: 12px; 
+            font-weight: bold; 
+            font-size: 1.05rem;
+            cursor: pointer; 
+            transition: all 0.2s ease;
+            letter-spacing: 2px;
+            margin-top: 10px;
+            box-shadow: 0 8px 20px rgba(197, 160, 89, 0.3);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button:active {
+            transform: scale(0.96);
+            background: #D4B475;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.25);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* 針對極小螢幕優化 */
+        @media (max-height: 700px) {
+            .container { padding: 20px 20px; }
+            header { margin-bottom: 20px; }
+            input, textarea, select { margin-bottom: 15px; }
+        }
     </style>
 </head>
 <body>
-    <h1>⚖️ 爭議化解與法律實務平台</h1>
-    <p>專注於複雜法律案件的邏輯拆解，從資深偵查經驗中，找尋權益維護的最優路徑。</p>
-    <p>隱於幕後的專業判斷，為您擋下法理外的風險。</p>
-    <div class="card">
-        <input type="text" id="name" placeholder="您的稱呼">
-        <select id="category">
-            <option value="刑事諮詢">刑事諮詢</option>
-            <option value="民事糾紛">民事糾紛</option>
-            <option value="權益維護">權益維護</option>
-            <option value="其他難題">其他難題</option>
-        </select>
-        <textarea id="desc" rows="5" placeholder="請詳述問題..."></textarea>
-        <input type="text" id="contactId" placeholder="聯絡方式 (Telegram)">
-        <button onclick="submitCase()">提交案情摘要</button>
+    <div class="container">
+        <header>
+            <h1>⚖️ 法律實務研析室</h1>
+            <div class="divider"></div>
+            <p class="subtitle">專注複雜案件邏輯拆解<br>以實務經驗剖析爭議核心</p>
+        </header>
+
+        <div class="card">
+            <label>諮詢稱呼</label>
+            <input type="text" id="name" placeholder="如何稱呼您">
+
+            <label>研析類別</label>
+            <select id="category">
+                <option value="刑事實務研析">刑事實務研析</option>
+                <option value="民事權益維護">民事權益維護</option>
+                <option value="行政爭議處置">行政爭議處置</option>
+                <option value="其他專案諮詢">其他專案諮詢</option>
+            </select>
+
+            <label>案情摘要</label>
+            <textarea id="desc" rows="4" placeholder="請簡述事實經過..."></textarea>
+
+            <label>連繫管道 (Telegram / LINE)</label>
+            <input type="text" id="contactId" placeholder="@ID 或 通訊號碼">
+
+            <button onclick="submitCase()">啟動案件研析</button>
+        </div>
+
+        <footer>
+            CONFIDENTIAL & PROFESSIONAL
+        </footer>
     </div>
 
     <script>
         async function submitCase() {
             const GAS_URL = 'https://script.google.com/macros/s/AKfycbyUUc9CbeSBOiAdWl1XtRoSg85sCTMshfCV2lUgTZnzl9txAZcPcwNDIXsCptXcXFOVvw/exec'; 
+            
+            const name = document.getElementById('name').value;
+            const desc = document.getElementById('desc').value;
+            const contact = document.getElementById('contactId').value;
+
+            if(!name || !desc || !contact) {
+                alert('請完整填寫研析資料。');
+                return;
+            }
+
             const payload = {
                 appId: 'CASE-' + Math.floor(Math.random()*10000),
-                name: document.getElementById('name').value,
+                name: name,
                 category: document.getElementById('category').value,
-                description: document.getElementById('desc').value,
-                contactId: document.getElementById('contactId').value
+                description: desc,
+                contactId: contact
             };
 
-            alert('正在提交，請稍候...');
-            await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
-            alert('提交成功！我們將盡快回覆您。');
-            location.reload();
+            alert('正在安全傳輸案情摘要...');
+            try {
+                await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+                alert('資料已傳遞。我們將在研析後回覆。');
+                location.reload();
+            } catch (e) {
+                alert('傳輸失敗，請檢查網路連線。');
+            }
         }
     </script>
 </body>
